@@ -1,0 +1,350 @@
+@import "heart";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  color: white;
+  background: linear-gradient(270deg, #0f0c29, #302b63, #24243e, #1e130c);
+  background-size: 600% 600%;
+  animation: gradientMove 10s ease infinite;
+
+  @keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+}
+
+// Fonts
+@font-face {
+  font-family: 'pirate';
+  src: url(./fonts/onepiecefont.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'bleach';
+  src: url(./fonts/Bleach-8jnJ.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'naruto';
+  src: url(./fonts/ninja-naruto.regular.ttf) format('truetype');
+}
+
+// Mixins (optional fallback if heart.scss doesn’t define these)
+@mixin height-width($h, $w) {
+  height: $h;
+  width: $w;
+}
+
+// Header
+header {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 85%;
+  background: linear-gradient(270deg, #0f0c29, #302b63, #24243e);
+  background-size: 600% 600%;
+  animation: darkShift 12s ease infinite;
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  z-index: 100;
+  backdrop-filter: blur(10px);
+
+  @keyframes darkShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+
+    h1 {
+      font-family: 'Kaushan Script';
+      font-size: 1.8rem;
+      font-weight: 700;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+
+      a {
+        font-family: 'Sawarabi Gothic', sans-serif;
+        font-size: 1.1rem;
+        text-decoration: none;
+        transition: all 0.3s ease;
+
+        &.naruto { color: #ff8c00; }
+        &.onepiece { color: #00bfff; }
+        &.bleach { color: #ffffff; }
+
+        &.naruto:hover {
+          color: #ffaa33;
+          text-shadow: 0 0 10px #ff8c00;
+          transform: scale(1.1);
+        }
+
+        &.onepiece:hover {
+          color: #66d9ff;
+          text-shadow: 0 0 10px #33ccff;
+          transform: scale(1.1);
+        }
+
+        &.bleach:hover {
+          color: #f0f0f0;
+          text-shadow: 0 0 12px #ffffff;
+          transform: scale(1.1);
+        }
+      }
+    }
+  }
+}
+
+// Intro Sections
+.intro {
+  padding: 20px 24px;
+
+  .intro-container {
+    max-width: 1400px;
+    margin: 2rem auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 50;
+      font-family: 'pirate';
+      letter-spacing: 0.5rem;
+      text-align: center;
+    }
+
+    .watch-link {
+      color: #2997ff;
+      text-decoration: none;
+      font-size: 1.125rem;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: opacity 0.2s;
+      &:hover {
+        text-decoration: underline;
+        opacity: 0.8;
+      }
+      .icon {
+        width: 16px;
+        height: 16px;
+        stroke: currentColor;
+      }
+    }
+  }
+
+  &:nth-of-type(3) {
+    h1 { font-family: 'bleach'; }
+  }
+  &:nth-of-type(5) {
+    h1 { font-family: 'naruto'; }
+  }
+}
+
+section:first-of-type{
+  margin-top: 120px;
+}
+
+
+// Card Section
+.view1 {
+  padding-bottom: 100px;
+
+  .card-container {
+    display: flex;
+    gap: 2rem;
+    overflow-x: auto;
+    align-items: center;
+    scroll-behavior: smooth;
+    padding: 0 24px;
+    overflow-y: hidden;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    .cards {
+      @include height-width(350px, 300px);
+      position: relative;
+      border-radius: 1rem;
+      box-shadow: 10px 10px 20px 10px rgba(0,0,0,0.5);
+      overflow: hidden;
+      flex-shrink: 0;
+      transition: transform 0.3s ease;
+
+      &:hover { transform: scale(1.03); }
+
+      .card-image {
+        @include height-width(100%, 100%);
+        object-fit: cover;
+      }
+
+      .bottom {
+        @include height-width(30%, 100%);
+        background: linear-gradient(transparent, black);
+        position: absolute;
+        bottom: -30%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem;
+        transition: bottom 0.6s ease;
+
+        h3 { color: white; }
+
+        .heart-toggle {
+          display: inline-block;
+          cursor: pointer;
+
+          input { display: none; }
+
+          .heart {
+            @include hollow-heart(25px);
+            transition: background 0.3s ease, transform 0.2s ease;
+          }
+
+          input:checked + .heart {
+            @include solid-heart(25px);
+            transform: scale(1.2);
+          }
+        }
+      }
+
+      &:hover .bottom {
+        bottom: 0%;
+      }
+    }
+  }
+}
+
+// Responsive Design
+// ------------------------------------------------------------
+@media (max-width: 1024px) {
+  header {
+    width: 95%;
+    nav {
+      gap: 1rem;
+
+      .nav-links {
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+    }
+  }
+
+  .intro {
+    .intro-container {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+
+      h1 {
+        font-size: 2rem;
+        letter-spacing: 0.2rem;
+      }
+      .watch-link {
+        font-size: 1rem;
+      }
+    }
+  }
+
+  .card-container {
+    gap: 1.2rem;
+    .cards {
+      @include height-width(300px, 250px);
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  header {
+    padding: 0.8rem 1.2rem;
+    nav {
+      h1 { font-size: 1.4rem; }
+      .nav-links a { font-size: 1rem; }
+    }
+  }
+
+  .intro .intro-container h1 {
+    font-size: 1.6rem;
+  }
+
+  .card-container {
+    .cards {
+      @include height-width(250px, 200px);
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  header {
+    top: 10px;
+    width: 95%;
+    padding: 0.6rem 1rem;
+
+    nav {
+      flex-direction: column;
+      align-items: center;
+
+      h1 {
+        font-size: 1.2rem;
+      }
+
+      .nav-links {
+        gap: 3rem;
+        a {
+          font-size: 0.9rem;
+        }
+      }
+    }
+  }
+
+  .intro .intro-container {
+    h1 {
+      font-size: 1.4rem;
+      letter-spacing: 0.1rem;
+    }
+  }
+
+  .card-container {
+    gap: 0.8rem;
+    padding: 0 12px;
+
+    .cards {
+      @include height-width(200px, 150px);
+    }
+  }
+}
+
+@media (min-width: 1440px) {
+  .intro .intro-container h1 {
+    font-size: 3rem;
+  }
+  .card-container .cards {
+    @include height-width(400px, 320px);
+  }
+}
